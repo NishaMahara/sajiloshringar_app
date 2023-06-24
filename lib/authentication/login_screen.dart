@@ -17,7 +17,55 @@ class _LoginScreenState extends State<LoginScreen>
   TextEditingController emailTextEditingController = TextEditingController();
   TextEditingController passwordTextEditingController = TextEditingController();
 
+  // validateForm()
+  // {
+  //   else if (!emailTextEditingController.text.contains("@")) {
+  //     Fluttertoast.showToast(msg: "Email address is not valid.");
+  //   }
+  //
+  //   else if (passwordTextEditingController.text.isEmpty) {
+  //     Fluttertoast.showToast(msg: "Fill the password");
+  //   }
+  //   else {
+  //      LoginBeauticianNow();
+  //   }
+  // }
 
+  // LoginBeauticianNow() async
+  // {
+  //   showDialog(
+  //       context: context,
+  //       barrierDismissible: false,
+  //       builder: (BuildContext c) {
+  //         return ProgressDialog(message: "Processing, Please wait...",);
+  //       }
+  //   );
+  //   final User? firebaseUser =
+  //       (
+  //           await fAuth.signInWithEmailAndPassword(
+  //
+  //             email: emailTextEditingController.text.trim(),
+  //             password: passwordTextEditingController.text.trim(),
+  //           ).catchError((msg){
+  //             Navigator.pop(context);
+  //             Fluttertoast.showToast(msg: "Error: " + msg.toString());
+  //           })
+  //       ).user;
+  //   if(firebaseUser != null)
+  //   {
+  //
+  //     currentFirebaseUser = firebaseUser;
+  //     Fluttertoast.showToast(msg:"Account has been Created.");
+  //     Navigator.push(context, MaterialPageRoute(builder: (c)=>  const MySplashScreen()));
+  //   }
+  //   else
+  //   {
+  //     Navigator.pop(context);
+  //     Fluttertoast.showToast(msg: "Account has not been created.");
+  //   }
+  //
+  // }
+  //
 
   @override
   Widget build(BuildContext context)
@@ -109,6 +157,8 @@ class _LoginScreenState extends State<LoginScreen>
               ElevatedButton(
                 onPressed: ()
                 {
+
+           //    validateForm();
 
                 },
                 style: ElevatedButton.styleFrom(

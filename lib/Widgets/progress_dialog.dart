@@ -13,19 +13,10 @@ class ProgressDialog extends StatefulWidget
 }
 
 class _ProgressDialogState extends State<ProgressDialog> {
+
+
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
-    final String? message = widget.message;
-
-  }
-}
-
-
-
-  @override
-  Widget build(BuildContext context)
-  {
     return Dialog(
       backgroundColor: Colors.black54,
       child: Container(
@@ -37,18 +28,17 @@ class _ProgressDialogState extends State<ProgressDialog> {
         ),
         child: Padding(
           padding: const EdgeInsets.all(16),
-          child:Row(
-            children:[
+          child: Row(
+            children: [
               const SizedBox(width: 6.0,),
               CircularProgressIndicator(
-                valueColor:AlwaysStoppedAnimation<Color>(Colors.black54) ,
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
               ),
               const SizedBox(width: 26.0,),
               Text(
-                // message!,
-                'Hello',
+                widget.message!,
                 style: const TextStyle(
-                  color:Colors.grey,
+                  color: Colors.black,
                   fontSize: 12,
                 ),
               ),
@@ -59,4 +49,4 @@ class _ProgressDialogState extends State<ProgressDialog> {
       ),
     );
   }
-
+}

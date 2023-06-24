@@ -1,4 +1,8 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:sajiloshringar_app/global/global.dart';
+import 'package:sajiloshringar_app/splashScreen/splash_screen.dart';
 class BeauticianInfoScreen extends StatefulWidget
 {
 
@@ -10,11 +14,27 @@ class BeauticianInfoScreen extends StatefulWidget
 class _BeauticianInfoScreenState extends State<BeauticianInfoScreen>
 {
 
-
-
   TextEditingController BeauticianNameEditingController = TextEditingController();
   TextEditingController BeauticianEmailTextEditingController = TextEditingController();
   TextEditingController BeauticianAddressTextEditingController = TextEditingController();
+
+   SaveBeauticianInfo()
+   {
+     Map BeauticianInfoMap =
+     {
+       "Beautician_name": BeauticianNameEditingController.text.trim(),
+       "Beautician_email": BeauticianEmailTextEditingController.text.trim(),
+       "Beautician_address": BeauticianAddressTextEditingController.text.trim(),
+
+     };
+
+     DatabaseReference beauticiansRef = FirebaseDatabase.instance.ref()
+         .child("beautician");
+     beauticiansRef.child(currentFirebaseUser!.uid).child("Beautician_details").set(BeauticianInfoMap);
+     Fluttertoast.showToast(msg: "Congratulations!Beautician Information has been saved.");
+     Navigator.push(context, MaterialPageRoute(builder: (c)=> const MySplashScreen()));
+
+   }
   @override
 
   Widget build(BuildContext context) {
@@ -127,12 +147,15 @@ class _BeauticianInfoScreenState extends State<BeauticianInfoScreen>
                   ),
                   const SizedBox(height: 20,),
                   ElevatedButton(
-                    onPressed: ()
-                    {
-                      Navigator.push(context, MaterialPageRoute(builder: (c)=> BeauticianInfoScreen()));
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.lightGreenAccent,
+                    onPressed: () {
+    if (BeauticianNameEditingController.text.isNotEmpty && BeauticianEmailTextEditingController.text.isNotEmpty && BeauticianAddressTextEditingController.text.isNotEmpty )
+    {
+    SaveBeauticianInfo();
+    }
+    },
+
+      style: ElevatedButton.styleFrom(
+             backgroundColor: Colors.lightGreenAccent,
                     ),
                     child:const Text(
                       "save Details",

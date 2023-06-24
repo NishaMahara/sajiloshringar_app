@@ -22,82 +22,74 @@ class _SignUpScreenState extends State<SignUpScreen> {
   TextEditingController passwordTextEditingController = TextEditingController();
 //validation of login page
 
-  validateForm()
+  validateForm() {
+    if (nameTextEditingController.text.length < 3) {
+      Fluttertoast.showToast(msg: "name must be atleast 3 Characters.");
+    }
+    else if (!emailTextEditingController.text.contains("@")) {
+      Fluttertoast.showToast(msg: "Email address is not valid.");
+    }
+    else if (phoneTextEditingController.text.isEmpty) {
+      Fluttertoast.showToast(msg: "phone number is required.");
+    }
+    else if (passwordTextEditingController.text.length < 6) {
+      Fluttertoast.showToast(msg: "password must be atleast 5 characters.");
+    }
+    else {
+      saveBeauticianInfoNow();
+    }
+  }
+  saveBeauticianInfoNow() async
   {
-    if (nameTextEditingController.text.length < 3)
-    {
-          Fluttertoast.showToast(msg: "name must be atleast 3 Characters.");
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext c) {
+          return ProgressDialog(message: "Processing, Please wait...",);
         }
-        else if (!emailTextEditingController.text.contains("@"))
-        {
-          Fluttertoast.showToast(msg: "Email address is not valid.");
-        }
-        else if (phoneTextEditingController.text.isEmpty) {
-          Fluttertoast.showToast(msg: "phone number is required.");
-        }
-        else if (passwordTextEditingController.text.length < 6) {
-          Fluttertoast.showToast(msg: "password must be atleast 5 characters.");
-        }
-        else
-        {
-          saveBeauticianInfoNow();
+    );
+    final User? firebaseUser =
+    (
+        await fAuth.createUserWithEmailAndPassword(
 
-        }
-      }
-
-      saveBeauticianInfoNow() async
-      {
-        showDialog(
-            context: context,
-            barrierDismissible: false,
-            builder: (BuildContext c)
-            {
-              return ProgressDialog(message: "Processing, Please wait...",);
-              }
-        );
-        final User? firebaseUser =
-            (
-            await fAuth.createUserWithEmailAndPassword(
-
-              email: emailTextEditingController.text.trim(),
-              password: passwordTextEditingController.text.trim(),
-            ).catchError((msg){
-              Navigator.pop(context);
-              Fluttertoast.showToast(msg: "Error: " + msg.toString());
-            })
-        ).user;
-        if(firebaseUser != null)
-
-        {
-          Map BeauticianMap =
-          {
-            "id":firebaseUser.uid,
-            "name": nameTextEditingController.text.trim(),
-            "email": nameTextEditingController.text.trim(),
-            "phone": nameTextEditingController.text.trim(),
-
-          };
-          DatabaseReference beauticiansRef = FirebaseDatabase.instance.reference().child("beautician");
-          beauticiansRef.child(firebaseUser.uid).set(BeauticianMap);
-
-          // currentfirebaseUser = firebaseUser;firebaseUserz
-
-
-        }
-        else
-        {
+          email: emailTextEditingController.text.trim(),
+          password: passwordTextEditingController.text.trim(),
+        ).catchError((msg){
           Navigator.pop(context);
-          Fluttertoast.showToast(msg: "Account has not been created.");
-        }
-      }
+          Fluttertoast.showToast(msg: "Error: " + msg.toString());
+        })
+    ).user;
+    if(firebaseUser != null) {
+      Map BeauticianMap =
+      {
+        "id": firebaseUser.uid,
+        "name": nameTextEditingController.text.trim(),
+        "email": nameTextEditingController.text.trim(),
+        "phone": nameTextEditingController.text.trim(),
 
+      };
+      DatabaseReference beauticiansRef = FirebaseDatabase.instance.ref()
+          .child("beautician");
+      beauticiansRef.child(firebaseUser.uid).set(BeauticianMap);
+
+      currentFirebaseUser = firebaseUser;
+      Fluttertoast.showToast(msg:"Account has been Created.");
+       Navigator.push(context, MaterialPageRoute(builder: (c)=> BeauticianInfoScreen()));
+    }
+    else
+    {
+      Navigator.pop(context);
+      Fluttertoast.showToast(msg: "Account has not been created.");
+    }
+
+  }
 
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      body: SingleChildScrollView(
+       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(

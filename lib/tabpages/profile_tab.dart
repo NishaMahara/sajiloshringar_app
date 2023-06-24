@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sajiloshringar_app/splashScreen/splash_screen.dart';
 
 class ProfileTabPage extends StatefulWidget {
   const ProfileTabPage({super.key});
@@ -18,3 +19,15 @@ class _ProfileTabPageState extends State<ProfileTabPage> {
 
   }
 }
+
+
+// // child: ElevatedButton(
+// // child: Text(
+// // "sign out",
+// // ),
+// // onPressed: (),
+// // {
+// //   fAuth.signOut();
+// Navigator.push(context, MaterialPageRoute(builder: (c)=> const MySplashScreen()));
+// // }
+// )
