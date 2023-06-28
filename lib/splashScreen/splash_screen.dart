@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:sajiloshringar_app/authentication/login_screen.dart';
 import 'package:sajiloshringar_app/authentication/signup_screen.dart';
+import 'package:sajiloshringar_app/global/global.dart';
 import 'package:sajiloshringar_app/mainScreens/main_screen.dart';
 
 class MySplashScreen extends StatefulWidget
@@ -14,19 +15,20 @@ class MySplashScreen extends StatefulWidget
 
 class _MySplashScreenState extends State<MySplashScreen>
 {
+
   startTimer() {
     Timer(const Duration(seconds: 3), () async
     {
-      // //if(await fAuth.currentUser != null)
-      // {
-      //      CurrentFirebaseUser = fAuth.currentUser;
-      //   Navigator.push(context, MaterialPageRoute(builder: (c)=> MainScreen()));
-      //
-      // }
-      // else
-      //   {
-      //   Navigator.push(context, MaterialPageRoute(builder: (c)=> LoginScreen())));
-      //   }
+      if(await fAuth.currentUser != null)
+       {
+           currentFirebaseUser = fAuth.currentUser;
+         Navigator.push(context, MaterialPageRoute(builder: (c)=> MainScreen()));
+
+       }
+       else
+         {
+         Navigator.push(context, MaterialPageRoute(builder: (c)=> LoginScreen()));
+         }
 
       Navigator.push(context, MaterialPageRoute(builder: (c)=> LoginScreen()));
     });
@@ -44,7 +46,7 @@ class _MySplashScreenState extends State<MySplashScreen>
   Widget build(BuildContext context)
   {
     return  Container(
-      color: Colors.purpleAccent,
+      color: Colors.orange,
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

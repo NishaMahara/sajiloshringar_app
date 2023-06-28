@@ -18,19 +18,19 @@ class _BeauticianInfoScreenState extends State<BeauticianInfoScreen>
   TextEditingController BeauticianEmailTextEditingController = TextEditingController();
   TextEditingController BeauticianAddressTextEditingController = TextEditingController();
 
-   SaveBeauticianInfo()
+   saveBeauticianInfo()
    {
-     Map BeauticianInfoMap =
+     Map beauticianInfoMap =
      {
        "Beautician_name": BeauticianNameEditingController.text.trim(),
        "Beautician_email": BeauticianEmailTextEditingController.text.trim(),
        "Beautician_address": BeauticianAddressTextEditingController.text.trim(),
 
+
      };
 
-     DatabaseReference beauticiansRef = FirebaseDatabase.instance.ref()
-         .child("beautician");
-     beauticiansRef.child(currentFirebaseUser!.uid).child("Beautician_details").set(BeauticianInfoMap);
+     DatabaseReference beauticiansRef = FirebaseDatabase.instance.ref().child("beauticians");
+     beauticiansRef.child(currentFirebaseUser!.uid).child("beautician_details").set(beauticianInfoMap);
      Fluttertoast.showToast(msg: "Congratulations!Beautician Information has been saved.");
      Navigator.push(context, MaterialPageRoute(builder: (c)=> const MySplashScreen()));
 
@@ -39,7 +39,7 @@ class _BeauticianInfoScreenState extends State<BeauticianInfoScreen>
 
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.orange,
         body:SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(24.0),
@@ -150,7 +150,7 @@ class _BeauticianInfoScreenState extends State<BeauticianInfoScreen>
                     onPressed: () {
     if (BeauticianNameEditingController.text.isNotEmpty && BeauticianEmailTextEditingController.text.isNotEmpty && BeauticianAddressTextEditingController.text.isNotEmpty )
     {
-    SaveBeauticianInfo();
+    saveBeauticianInfo();
     }
     },
 
@@ -160,7 +160,7 @@ class _BeauticianInfoScreenState extends State<BeauticianInfoScreen>
                     child:const Text(
                       "save Details",
                       style: TextStyle(
-                        color: Colors.black54,
+                        color: Colors.orange,
                         fontSize: 18,
                       ),
                     ),

@@ -5,6 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sajiloshringar_app/Widgets/progress_dialog.dart';
 
 import 'package:sajiloshringar_app/authentication/beautician_info_screen.dart';
+import 'package:sajiloshringar_app/authentication/login_screen.dart';
 import 'package:sajiloshringar_app/global/global.dart';
 
 
@@ -60,17 +61,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
         })
     ).user;
     if(firebaseUser != null) {
-      Map BeauticianMap =
+      Map beauticianMap =
       {
         "id": firebaseUser.uid,
         "name": nameTextEditingController.text.trim(),
-        "email": nameTextEditingController.text.trim(),
-        "phone": nameTextEditingController.text.trim(),
+        "email": emailTextEditingController.text.trim(),
+        "phone": phoneTextEditingController.text.trim(),
+        "password":passwordTextEditingController.text.trim(),
+
 
       };
-      DatabaseReference beauticiansRef = FirebaseDatabase.instance.ref()
-          .child("beautician");
-      beauticiansRef.child(firebaseUser.uid).set(BeauticianMap);
+      DatabaseReference beauticiansRef = FirebaseDatabase.instance.ref().child("beauticians");
+      beauticiansRef.child(firebaseUser.uid).set(beauticianMap);
 
       currentFirebaseUser = firebaseUser;
       Fluttertoast.showToast(msg:"Account has been Created.");
@@ -88,7 +90,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.orange,
        body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -105,7 +107,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 "Register as Beautician ",
                 style: TextStyle(
                   fontSize: 26,
-                  color: Colors.grey,
+                  color: Colors.black,
                   fontWeight: FontWeight.bold,
 
                 ),
@@ -234,13 +236,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 child:const Text(
                   "Create Account",
                   style: TextStyle(
-                    color: Colors.black54,
+                    color: Colors.orange,
                     fontSize: 18,
                   ),
                 ),
               ),
-
-
+              TextButton(
+                child: const Text(
+                  "Already have an Account? Login Here",
+                  style: TextStyle(color: Colors.grey),
+                ),
+                  onPressed: ()
+                  {
+                    Navigator.push(context, MaterialPageRoute(builder: (c)=> LoginScreen()));
+                  },
+              ),
             ],
 
           ),
