@@ -10,6 +10,7 @@ class HomeTabPage extends StatefulWidget {
   State<HomeTabPage> createState() => _HomeTabPageState();
 }
 
+
 class _HomeTabPageState extends State<HomeTabPage>
 {
   GoogleMapController? newGoogleMapController;
@@ -18,6 +19,7 @@ class _HomeTabPageState extends State<HomeTabPage>
     target: LatLng(37.42796133580664, -122.085749655962),
     zoom: 14.4746,
   );
+  //
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +38,7 @@ class _HomeTabPageState extends State<HomeTabPage>
 
          },
 
-        )
+        ),
       ],
     );
   }

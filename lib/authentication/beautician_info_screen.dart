@@ -39,7 +39,7 @@ class _BeauticianInfoScreenState extends State<BeauticianInfoScreen>
 
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.orange,
+        backgroundColor: Colors.white,
         body:SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(24.0),
@@ -58,7 +58,7 @@ class _BeauticianInfoScreenState extends State<BeauticianInfoScreen>
                     "Beautician Details ",
                     style: TextStyle(
                       fontSize: 26,
-                      color: Colors.grey,
+                      color: Colors.black,
                       fontWeight: FontWeight.bold,
 
                     ),
@@ -66,7 +66,7 @@ class _BeauticianInfoScreenState extends State<BeauticianInfoScreen>
                   TextField(
                     controller: BeauticianNameEditingController,
                     style: TextStyle(
-                        color: Colors.grey
+                        color: Colors.black
                     ),
                     decoration:  const InputDecoration(
                         labelText: "Name",
@@ -84,7 +84,7 @@ class _BeauticianInfoScreenState extends State<BeauticianInfoScreen>
                           fontSize: 10,
                         ),
                         labelStyle: TextStyle(
-                          color: Colors.grey,
+                          color: Colors.black,
                           fontSize: 16,
                         )
                     ),
@@ -93,7 +93,7 @@ class _BeauticianInfoScreenState extends State<BeauticianInfoScreen>
                   TextField(
                     controller: BeauticianEmailTextEditingController,
                     style: TextStyle(
-                        color: Colors.grey
+                        color: Colors.black
                     ),
                     decoration:  const InputDecoration(
                         labelText: "Email",
@@ -111,7 +111,7 @@ class _BeauticianInfoScreenState extends State<BeauticianInfoScreen>
                           fontSize: 10,
                         ),
                         labelStyle: TextStyle(
-                          color: Colors.grey,
+                          color: Colors.black,
                           fontSize: 16,
                         )
                     ),
@@ -121,7 +121,7 @@ class _BeauticianInfoScreenState extends State<BeauticianInfoScreen>
                     controller: BeauticianAddressTextEditingController,
 
                     style: TextStyle(
-                        color: Colors.grey
+                        color: Colors.black
                     ),
                     decoration:  const InputDecoration(
                         labelText: "Address",
@@ -139,7 +139,7 @@ class _BeauticianInfoScreenState extends State<BeauticianInfoScreen>
                           fontSize: 10,
                         ),
                         labelStyle: TextStyle(
-                          color: Colors.grey,
+                          color: Colors.black,
                           fontSize: 16,
                         )
                     ),
@@ -160,7 +160,7 @@ class _BeauticianInfoScreenState extends State<BeauticianInfoScreen>
                     child:const Text(
                       "save Details",
                       style: TextStyle(
-                        color: Colors.orange,
+                        color: Colors.black,
                         fontSize: 18,
                       ),
                     ),

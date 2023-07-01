@@ -24,14 +24,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
 //validation of login page
 
   validateForm() {
-    if (nameTextEditingController.text.length < 3) {
-      Fluttertoast.showToast(msg: "name must be atleast 3 Characters.");
+    if (nameTextEditingController.text.length < 6) {
+      Fluttertoast.showToast(msg: "name must be atleast 6 Characters.");
     }
     else if (!emailTextEditingController.text.contains("@")) {
       Fluttertoast.showToast(msg: "Email address is not valid.");
     }
-    else if (phoneTextEditingController.text.isEmpty) {
-      Fluttertoast.showToast(msg: "phone number is required.");
+    else if (phoneTextEditingController.text.length<10) {
+      Fluttertoast.showToast(msg: "phone number should be of 10 digits.");
     }
     else if (passwordTextEditingController.text.length < 6) {
       Fluttertoast.showToast(msg: "password must be atleast 5 characters.");
@@ -90,7 +90,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.orange,
+      backgroundColor: Colors.white,
        body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -116,7 +116,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               TextField(
                 controller: nameTextEditingController,
                 style: TextStyle(
-                    color: Colors.grey
+                    color: Colors.black
                 ),
                 decoration:  const InputDecoration(
                     labelText: "Name",
@@ -134,7 +134,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       fontSize: 10,
                     ),
                     labelStyle: TextStyle(
-                      color: Colors.grey,
+                      color: Colors.black,
                       fontSize: 16,
                     )
                 ),
@@ -143,7 +143,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               TextField(
                 controller: emailTextEditingController,
                 style: TextStyle(
-                    color: Colors.grey
+                    color: Colors.black
                 ),
                 decoration:  const InputDecoration(
                     labelText: "Email",
@@ -161,7 +161,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       fontSize: 10,
                     ),
                     labelStyle: TextStyle(
-                      color: Colors.grey,
+                      color: Colors.black,
                       fontSize: 16,
                     )
                 ),
@@ -171,7 +171,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 controller: phoneTextEditingController,
                 keyboardType: TextInputType.phone,
                 style: TextStyle(
-                    color: Colors.grey
+                    color: Colors.black
                 ),
                 decoration:  const InputDecoration(
                     labelText: "Phone",
@@ -189,7 +189,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       fontSize: 10,
                     ),
                     labelStyle: TextStyle(
-                      color: Colors.grey,
+                      color: Colors.black,
                       fontSize: 16,
                     )
                 ),
@@ -198,8 +198,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
               TextField(
                 controller: passwordTextEditingController,
                 keyboardType: TextInputType.text,
+                obscureText: true,
                 style: TextStyle(
-                    color: Colors.grey
+                    color: Colors.black
                 ),
                 decoration:  const InputDecoration(
                     labelText: "Password",
@@ -217,7 +218,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       fontSize: 10,
                     ),
                     labelStyle: TextStyle(
-                      color: Colors.grey,
+                      color: Colors.black,
                       fontSize: 16,
                     )
                 ),
@@ -236,7 +237,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 child:const Text(
                   "Create Account",
                   style: TextStyle(
-                    color: Colors.orange,
+                    color: Colors.black,
                     fontSize: 18,
                   ),
                 ),
@@ -244,7 +245,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               TextButton(
                 child: const Text(
                   "Already have an Account? Login Here",
-                  style: TextStyle(color: Colors.grey),
+                  style: TextStyle(color: Colors.brown),
                 ),
                   onPressed: ()
                   {
