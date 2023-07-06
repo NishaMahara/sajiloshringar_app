@@ -1,6 +1,10 @@
 import 'dart:async';
 
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_geofire/flutter_geofire.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sajiloshringar_app/global/global.dart';
@@ -25,13 +29,14 @@ class _HomeTabPageState extends State<HomeTabPage>
   );
   //
 
-  Position? userCurrentPosition;
+  Position? beauticianCurrentPosition;
   var geoLocator = Geolocator();
   LocationPermission? _locationPermission;
 
-  String statusText = "Now offline";
+  String statusText = "Go Online";
   Color buttonColor = Colors.green;
   bool isBeauticianActive = false;
+
 
 
   checkIfLocationPermissionAllowed() async
@@ -49,26 +54,84 @@ class _HomeTabPageState extends State<HomeTabPage>
   locateBeauticianPosition() async
   {
     Position cPosition = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-    userCurrentPosition = cPosition;
+    beauticianCurrentPosition = cPosition;
 
-    LatLng latLngPosition = LatLng(userCurrentPosition!.latitude, userCurrentPosition!.longitude);
+    LatLng latLngPosition = LatLng(beauticianCurrentPosition!.latitude, beauticianCurrentPosition!.longitude);
 
     CameraPosition cameraPosition = CameraPosition(target: latLngPosition, zoom: 14 );
 
     newGoogleMapController!.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
-    String humanReadableAddress = await AssistantMethods.searchAddressForGeographicCoOrdinates(userCurrentPosition!,context);
+    String humanReadableAddress = await AssistantMethods.searchAddressForGeographicCoOrdinates(beauticianCurrentPosition!,context);
     print("this is your address = " + humanReadableAddress);
 
 
 
   }
+
   @override
   void initState() {
 
     super.initState();
     checkIfLocationPermissionAllowed();
 
+
   }
+
+  beauticianIsOnlineNow() async
+  {
+    Position pos = await Geolocator.getCurrentPosition(
+      desiredAccuracy: LocationAccuracy.high,
+
+    );
+    Geofire.initialize("activeBeauticians");
+    Geofire.setLocation(currentFirebaseUser!.uid,
+        beauticianCurrentPosition!.latitude,
+        beauticianCurrentPosition!.longitude
+    );
+    DatabaseReference ref = FirebaseDatabase.instance.ref()
+        .child("beauticians").child(currentFirebaseUser!.uid)
+    .child("newRideStatus");
+
+    ref.set("idle");//waiting for service request
+    ref.onValue.listen((event) { });
+  }
+updateBeauticiansLocationAtRealTime()
+{
+  streamSubscriptionPosition = Geolocator.getPositionStream()
+      .listen((Position position)
+      {
+        beauticianCurrentPosition = position;
+        if(isBeauticianActive== true)
+          {
+            Geofire.setLocation(
+                currentFirebaseUser!.uid, 
+                beauticianCurrentPosition!.latitude,
+                beauticianCurrentPosition!.longitude
+            );
+          }
+        LatLng latLng  = LatLng(
+          beauticianCurrentPosition!.latitude,
+          beauticianCurrentPosition!.longitude,
+        );
+        newGoogleMapController!.animateCamera(CameraUpdate.newLatLng(latLng));
+
+
+      });
+      }
+      beauticiansIsOfflineNow() {
+        Geofire.removeLocation(currentFirebaseUser!.uid);
+
+        DatabaseReference? ref = FirebaseDatabase.instance.ref()
+            .child("beauticians").child(currentFirebaseUser!.uid)
+            .child("newRideStatus");
+        ref.onDisconnect();
+        ref.remove();
+        ref = null;
+
+       // Future.delayed(const Duration(microseconds: 9000), () {
+         //SystemNavigator.pop();
+       // });
+      }
 
 
   @override
@@ -111,8 +174,29 @@ class _HomeTabPageState extends State<HomeTabPage>
             children: [
               ElevatedButton(
                   onPressed: ()
-    {
-    },
+                  {
+                    if(isBeauticianActive != true)//offline
+                        {
+                      beauticianIsOnlineNow();
+                      updateBeauticiansLocationAtRealTime();
+                      setState(() {
+                        statusText = "Now Online";
+                        isBeauticianActive = true;
+                        buttonColor = Colors.green;
+                      });
+                      Fluttertoast.showToast(msg: "you are Online Now");
+                    }
+                    else
+                      {
+                        beauticiansIsOfflineNow();
+                        setState(() {
+                          statusText = "Go Online";
+                          isBeauticianActive = false;
+                          buttonColor = Colors.green;
+                        });
+                        Fluttertoast.showToast(msg: "you are Offline Now");
+                      }
+                    },
                 style: ElevatedButton.styleFrom(
                   primary: buttonColor,
                   padding: const EdgeInsets.symmetric(horizontal: 16),
