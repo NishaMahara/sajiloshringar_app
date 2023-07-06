@@ -29,6 +29,10 @@ class _HomeTabPageState extends State<HomeTabPage>
   var geoLocator = Geolocator();
   LocationPermission? _locationPermission;
 
+  String statusText = "Now offline";
+  Color buttonColor = Colors.green;
+  bool isBeauticianActive = false;
+
 
   checkIfLocationPermissionAllowed() async
   {
@@ -86,6 +90,57 @@ class _HomeTabPageState extends State<HomeTabPage>
          },
 
         ),
+        //ui for online offline driver
+        statusText!= "Now Online"
+            ? Container(
+          height: MediaQuery.of(context).size.height,
+          width: double.infinity,
+          color: Colors.black,
+        )
+
+            : Container(),
+
+        // button for driver online offline
+        Positioned(
+          top: statusText != "Now Online" ? MediaQuery.of(context).size.height *0.40
+              : 25,
+          left: 0,
+          right: 0,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                  onPressed: ()
+    {
+    },
+                style: ElevatedButton.styleFrom(
+                  primary: buttonColor,
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                ),
+
+      child:statusText != "Now Online"
+      ? Text(
+        statusText,
+        style: const TextStyle(
+          fontSize: 16.0,
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
+        )
+      )
+        :  const Icon(
+        Icons.phonelink_ring,
+        color: Colors.white,
+        size: 24,
+      ),
+              ),
+
+            ],
+
+          ),
+
+        ),
+
+
       ],
     );
   }
