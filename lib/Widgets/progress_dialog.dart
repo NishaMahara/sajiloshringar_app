@@ -18,12 +18,12 @@ class _ProgressDialogState extends State<ProgressDialog> {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      backgroundColor: Colors.black54,
+      backgroundColor: Colors.white,
       child: Container(
         margin: EdgeInsets.all(16.0),
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(6),
+          borderRadius: BorderRadius.circular(4),
 
         ),
         child: Padding(
@@ -34,7 +34,7 @@ class _ProgressDialogState extends State<ProgressDialog> {
               CircularProgressIndicator(
                 valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
               ),
-              const SizedBox(width: 26.0,),
+              const SizedBox(width: 20.0,),
               Text(
                 widget.message!,
                 style: const TextStyle(
