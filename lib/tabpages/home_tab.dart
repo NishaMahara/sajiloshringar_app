@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,6 +8,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sajiloshringar_app/global/global.dart';
+import 'package:sajiloshringar_app/push_ontifications/push_notification_system.dart';
+
 
 import '../assistants/assistant_methods.dart';
 
@@ -66,15 +68,26 @@ class _HomeTabPageState extends State<HomeTabPage>
 
 
 
-  }
 
+  }
+ 
+ readCurrentBeauticianInformation() async
+ {
+  currentFirebaseUser = fAuth.currentUser;
+  PushNotificationSystem pushNotificationSystem = PushNotificationSystem();
+  pushNotificationSystem.initializeCloudMessaging();
+  pushNotificationSystem.generateAndGetToken();
+ }
+ 
+ 
+ 
   @override
   void initState() {
 
     super.initState();
     checkIfLocationPermissionAllowed();
 
-
+      readCurrentBeauticianInformation();
   }
 
   beauticianIsOnlineNow() async
@@ -133,7 +146,7 @@ updateBeauticiansLocationAtRealTime()
        // });
       }
 
-
+ 
   @override
   Widget build(BuildContext context) {
 
