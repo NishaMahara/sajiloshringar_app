@@ -11,6 +11,8 @@ class UserserviceRequestInformation
   String?          userPhone;
   String?         userAddress;
 
+  String?         serviceRequestId;
+
   UserserviceRequestInformation({
     this.AddressLatLang,
     this.selected_service,
@@ -18,5 +20,7 @@ class UserserviceRequestInformation
     this.userName,
     this.userPhone,
     this.userAddress,
+
+    this.serviceRequestId,
 });
 }

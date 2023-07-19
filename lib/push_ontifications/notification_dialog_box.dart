@@ -1,4 +1,7 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:sajiloshringar_app/global/global.dart';
 
 import '../models/user_service_request_information.dart';
 
@@ -154,8 +157,8 @@ class _NotificationDialogBoxState extends State<NotificationDialogBox>
               primary:Colors.green,
              ),
                   onPressed: () {
-                    //cancel service request
-                    Navigator.pop(context);
+                    //accept service request
+                       acceptserviceRequest(context);
                   },
                   child: const Text(
                       "Accept",
@@ -172,6 +175,40 @@ class _NotificationDialogBoxState extends State<NotificationDialogBox>
       ),
 
     );
+  }
+  acceptserviceRequest(BuildContext context)
+  {
+    String getservideRequestId="";
+  FirebaseDatabase.instance.ref()
+      .child("beauticians")
+      .child(currentFirebaseUser!.uid)
+      .child("newServiceStatus")
+      .once()
+      .then((snap)
+  {
+      if(snap.snapshot.value != null)
+      {
+        getservideRequestId = snap.snapshot.value.toString();
+      }
+        else {
+Fluttertoast.showToast(msg: "this service request do not exist");
+      }
+
+       if(getservideRequestId == widget.userserviceRequestDetails!.serviceRequestId)
+
+{
+  FirebaseDatabase.instance.ref()
+      .child("beauticians")
+      .child(currentFirebaseUser!.uid)
+      .child("newServiceStatus")
+      .set("accepted");
+ // Navigator.push(context, MaterialPageRoute(builder: (c)=> NewServiceScreen()));
+//send Beautician to new service request screen
+}
+       else {
+         Fluttertoast.showToast(msg: "this request do not exist");
+       }
+  });
   }
 }
 
