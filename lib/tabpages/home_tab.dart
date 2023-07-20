@@ -103,7 +103,7 @@ class _HomeTabPageState extends State<HomeTabPage>
     );
     DatabaseReference ref = FirebaseDatabase.instance.ref()
         .child("beauticians").child(currentFirebaseUser!.uid)
-    .child("newRideStatus");
+    .child("newServiceStatus");
 
     ref.set("idle");//waiting for service request
     ref.onValue.listen((event) { });
