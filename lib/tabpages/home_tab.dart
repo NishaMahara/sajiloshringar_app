@@ -102,7 +102,8 @@ class _HomeTabPageState extends State<HomeTabPage>
         beauticianCurrentPosition!.longitude
     );
     DatabaseReference ref = FirebaseDatabase.instance.ref()
-        .child("beauticians").child(currentFirebaseUser!.uid)
+        .child("beauticians")
+        .child(currentFirebaseUser!.uid)
     .child("newServiceStatus");
 
     ref.set("idle");//waiting for service request
@@ -136,7 +137,7 @@ updateBeauticiansLocationAtRealTime()
 
         DatabaseReference? ref = FirebaseDatabase.instance.ref()
             .child("beauticians").child(currentFirebaseUser!.uid)
-            .child("newRideStatus");
+            .child("newServiceStatus");
         ref.onDisconnect();
         ref.remove();
         ref = null;
