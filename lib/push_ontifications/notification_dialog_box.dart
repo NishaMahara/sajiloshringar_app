@@ -178,7 +178,7 @@ class _NotificationDialogBoxState extends State<NotificationDialogBox>
   }
   acceptserviceRequest(BuildContext context)
   {
-    String getservideRequestId="";
+    String getserviceRequestId="";
   FirebaseDatabase.instance.ref()
       .child("beauticians")
       .child(currentFirebaseUser!.uid)
@@ -188,13 +188,12 @@ class _NotificationDialogBoxState extends State<NotificationDialogBox>
   {
       if(snap.snapshot.value != null)
       {
-        getservideRequestId = snap.snapshot.value.toString();
+        getserviceRequestId = snap.snapshot.value.toString();
       }
         else {
 Fluttertoast.showToast(msg: "this service request do not exist");
       }
-
-       if(getservideRequestId == widget.userserviceRequestDetails!.serviceRequestId)
+        if(getserviceRequestId == widget.userserviceRequestDetails!.serviceRequestId)
 
 {
   FirebaseDatabase.instance.ref()
@@ -204,6 +203,9 @@ Fluttertoast.showToast(msg: "this service request do not exist");
       .set("accepted");
  // Navigator.push(context, MaterialPageRoute(builder: (c)=> NewServiceScreen()));
 //send Beautician to new service request screen
+
+        //trip started now - send beautician to tripScreen
+
 }
        else {
          Fluttertoast.showToast(msg: "this request do not exist");

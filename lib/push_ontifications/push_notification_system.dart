@@ -21,16 +21,22 @@ class PushNotificationSystem
     {
       if(remoteMessage != null)
       {
+        print("this is service request id :: ");
+        print(remoteMessage.data["serviceRequestId"]);
+
         //display service request information = user information who has basically requested
 
         readUserserviceRequestInformation(remoteMessage.data["serviceRequestId"], context);
       }
     });
 
+
     //2.foreground
     //whaen app is open and it receive the push notification
     FirebaseMessaging.onMessage.listen((RemoteMessage? remoteMessage)
     {
+      print("this is service request id :: ");
+      print(remoteMessage!.data["serviceRequestId"]);
 //display service request information = user information who has basically requested
 
       readUserserviceRequestInformation(remoteMessage!.data["serviceRequestId"], context);
@@ -40,6 +46,8 @@ class PushNotificationSystem
     //3.background
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage? remoteMessage)
     {
+      print("this is service request id :: ");
+      print(remoteMessage!.data["serviceRequestId"]);
       //display service request information = user information who has basically requested
 
       readUserserviceRequestInformation(remoteMessage!.data["serviceRequestId"], context);
