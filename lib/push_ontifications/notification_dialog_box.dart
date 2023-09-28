@@ -2,13 +2,14 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sajiloshringar_app/global/global.dart';
+import 'package:sajiloshringar_app/mainScreens/new_trip_screen.dart';
 
 import '../models/user_service_request_information.dart';
 
 class NotificationDialogBox extends StatefulWidget
 {
-  UserserviceRequestInformation? userserviceRequestDetails;
-  NotificationDialogBox({this.userserviceRequestDetails});
+  UserserviceRequestInformation? userServiceRequestDetails;
+  NotificationDialogBox({this.userServiceRequestDetails});
 
   @override
   State<NotificationDialogBox> createState() => _NotificationDialogBoxState();
@@ -93,7 +94,7 @@ class _NotificationDialogBoxState extends State<NotificationDialogBox>
                   // const SizedBox(width: 1,),
                    Text(
 
-                     widget.userserviceRequestDetails!.userAddress!,
+                     widget.userServiceRequestDetails!.userAddress!,
                      style: const TextStyle(
                        fontSize: 15,
                        color: Colors.black,
@@ -113,7 +114,7 @@ class _NotificationDialogBoxState extends State<NotificationDialogBox>
                       const SizedBox(width: 1,),
                       Text(
 
-                      'service:${widget.userserviceRequestDetails!.selected_service!}',
+                      'service:${widget.userServiceRequestDetails!.selected_service!}',
                         style: const TextStyle(
                           fontSize: 18,
 
@@ -158,7 +159,7 @@ class _NotificationDialogBoxState extends State<NotificationDialogBox>
              ),
                   onPressed: () {
                     //accept service request
-                       acceptserviceRequest(context);
+                       acceptServiceRequest(context);
                   },
                   child: const Text(
                       "Accept",
@@ -176,7 +177,7 @@ class _NotificationDialogBoxState extends State<NotificationDialogBox>
 
     );
   }
-  acceptserviceRequest(BuildContext context)
+  acceptServiceRequest(BuildContext context)
   {
     String getserviceRequestId="";
   FirebaseDatabase.instance.ref()
@@ -193,7 +194,7 @@ class _NotificationDialogBoxState extends State<NotificationDialogBox>
         else {
 Fluttertoast.showToast(msg: "this service request do not exist");
       }
-        if(getserviceRequestId == widget.userserviceRequestDetails!.serviceRequestId)
+        if(getserviceRequestId == widget.userServiceRequestDetails!.serviceRequestId)
 
 {
   FirebaseDatabase.instance.ref()
@@ -205,6 +206,10 @@ Fluttertoast.showToast(msg: "this service request do not exist");
 //send Beautician to new service request screen
 
         //trip started now - send beautician to tripScreen
+          Navigator.push(context, MaterialPageRoute(builder:  (c)=> NewTripScreen(
+              userServiceRequestDetails: widget.userServiceRequestDetails,
+          )));
+
 
 }
        else {
@@ -213,5 +218,6 @@ Fluttertoast.showToast(msg: "this service request do not exist");
   });
   }
 }
+
 
 

@@ -73,20 +73,20 @@ class PushNotificationSystem
 
 
         //instance of userservicerequestinfo
-        UserserviceRequestInformation userserviceRequestDetails = UserserviceRequestInformation();
-        userserviceRequestDetails.AddressLatLang =
+        UserserviceRequestInformation userServiceRequestDetails = UserserviceRequestInformation();
+        userServiceRequestDetails.AddressLatLang =
             LatLng(AddressLat, AddressLng);
         //userserviceRequestDetails.
-        userserviceRequestDetails.selected_service = selected_service;
-        userserviceRequestDetails.beauticianId = beauticianId;
-        userserviceRequestDetails.userName = userName;
-        userserviceRequestDetails.userPhone = userPhone;
-        userserviceRequestDetails.userAddress  = userAddress;
+        userServiceRequestDetails.selected_service = selected_service;
+        userServiceRequestDetails.beauticianId = beauticianId;
+        userServiceRequestDetails.userName = userName;
+        userServiceRequestDetails.userPhone = userPhone;
+        userServiceRequestDetails.userAddress  = userAddress;
 
         showDialog(
             context: context,
             builder: (BuildContext context) => NotificationDialogBox(
-                userserviceRequestDetails: userserviceRequestDetails,
+                userServiceRequestDetails: userServiceRequestDetails,
             ),
 
         );
